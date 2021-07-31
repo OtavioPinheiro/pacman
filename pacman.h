@@ -6,5 +6,8 @@
 #define PACMAN_PACMAN_H
 void liberamapa();
 void lemapa();
+void imprimemapa();
 void alocamapa();
+int acabou();
+void move(char);
 #endif //PACMAN_PACMAN_H
