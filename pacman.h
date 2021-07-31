@@ -16,4 +16,6 @@ struct mapa {
     int linhas;
     int colunas;
 };
+
+typedef struct mapa MAPA;
 #endif //PACMAN_PACMAN_H
