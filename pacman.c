@@ -4,6 +4,7 @@
 #include "mapa.c"
 
 MAPA m;
+POSICAO pacman;
 
 int acabou() {
     return 0;
@@ -12,39 +13,35 @@ int acabou() {
 void move(char direcao) {
     int x;
     int y;
-    for (int i = 0; i < m.linhas; ++i) {
-        for (int j = 0; j < m.colunas; ++j) {
-            if(m.matriz[i][j] == '@') {
-                x = i;
-                y = j;
-                break;
-            }
-        }
-    }
 
+    m.matriz[pacman.x][pacman.y] = '.';
     switch (direcao) {
         case 'a':
-            m.matriz[x][y-1] = '@';
+            m.matriz[pacman.x][pacman.y-1] = '@';
+            pacman.y--;
             break;
         case 'w':
-            m.matriz[x-1][y] = '@';
+            m.matriz[pacman.x-1][pacman.y] = '@';
+            pacman.x--;
             break;
         case 's':
-            m.matriz[x+1][y] = '@';
+            m.matriz[pacman.x+1][pacman.y] = '@';
+            pacman.x++;
             break;
         case 'd':
-            m.matriz[x][y+1] = '@';
+            m.matriz[pacman.x][pacman.y+1] = '@';
+            pacman.y++;
             break;
         default:
             printf("Comando inválido\n");
             break;
     }
-    m.matriz[x][y] = '.';
 }
 
 int main() {
 
     lemapa(&m);
+    encontramapa(&m, &pacman, '@');
     do {
         imprimemapa(&m);
         char comando;
