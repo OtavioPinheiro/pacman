@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+# include <locale.h>
 #include "pacman.h"
 #include "mapa.c"
 
@@ -11,35 +12,39 @@ int acabou() {
 }
 
 void move(char direcao) {
-    int x;
-    int y;
+    int proximox = pacman.x;
+    int proximoy = pacman.y;
 
-    m.matriz[pacman.x][pacman.y] = '.';
     switch (direcao) {
         case 'a':
-            m.matriz[pacman.x][pacman.y-1] = '@';
-            pacman.y--;
+            proximoy--;
             break;
         case 'w':
-            m.matriz[pacman.x-1][pacman.y] = '@';
-            pacman.x--;
+            proximox--;
             break;
         case 's':
-            m.matriz[pacman.x+1][pacman.y] = '@';
-            pacman.x++;
+            proximox++;
             break;
         case 'd':
-            m.matriz[pacman.x][pacman.y+1] = '@';
-            pacman.y++;
+            proximoy++;
             break;
         default:
-            printf("Comando inválido\n");
+            wprintf(L"Comando inválido\n");
             break;
     }
+
+    if(proximox >= m.linhas) return;
+    if(proximoy >= m.colunas) return;
+    if(m.matriz[proximox][proximoy] != '.') return;
+
+    m.matriz[proximox][proximoy] = '@';
+    m.matriz[pacman.x][pacman.y] = '.';
+    pacman.x = proximox;
+    pacman.y = proximoy;
 }
 
 int main() {
-
+    setlocale(LC_ALL, "Portuguese");
     lemapa(&m);
     encontramapa(&m, &pacman, '@');
     do {
