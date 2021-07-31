@@ -10,4 +10,10 @@ void imprimemapa();
 void alocamapa();
 int acabou();
 void move(char);
+
+struct mapa {
+    char** matriz;
+    int linhas;
+    int colunas;
+};
 #endif //PACMAN_PACMAN_H
