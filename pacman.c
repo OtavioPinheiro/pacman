@@ -52,7 +52,9 @@ void fantasmas() {
 }
 
 int acabou() {
-    return 0;
+    POSICAO posicao;
+    int pacmannomapa = encontramapa(&m, &posicao, PACMAN);
+    return !pacmannomapa;
 }
 
 void move(char direcao) {

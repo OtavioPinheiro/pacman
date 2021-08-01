@@ -25,6 +25,6 @@ void lemapa(MAPA* m);
 void imprimemapa(MAPA* m);
 void alocamapa(MAPA* m);
 void andapelomapa(MAPA* m, int origemx, int origemy, int destinox, int destinoy);
-void encontramapa(MAPA* m, POSICAO* p, char c);
+int encontramapa(MAPA* m, POSICAO* p, char c);
 void mapaauxiliar(MAPA* destino, MAPA* origem);
 #endif//PACMAN_MAPA_H
