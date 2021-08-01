@@ -20,7 +20,12 @@ int praondefantasmavai(int xatual, int yatual, int* destinox, int* destinoy) {
     for (int i = 0; i < 10; ++i) {
         int posicao = rand() % 4;
 
-        if() {}
+        if(posicaoehvalida(&m, opcoes[posicao][0], opcoes[posicao][1])) {
+            *destinox = opcoes[posicao][0];
+            *destinoy = opcoes[posicao][1];
+
+            return 1;
+        }
     }
 
     return 0;
@@ -32,8 +37,13 @@ void fantasmas() {
     for (int i = 0; i < m.linhas; ++i) {
         for (int j = 0; j < m.colunas; ++j) {
             if(auxiliar.matriz[i][j] == FANTASMA) {
-                if(posicaoehvalida(&m, i, j+1)) {
-                    andapelomapa(&m, i, j, i, j+1);
+
+                int destinox;
+                int destinoy;
+                int encontrou = praondefantasmavai(i, j, &destinox, &destinoy);
+
+                if(encontrou) {
+                    andapelomapa(&m, i, j, destinox, destinoy);
                 }
             }
         }
