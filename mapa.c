@@ -63,15 +63,35 @@ int encontramapa(MAPA* m, POSICAO* p, char c) {
     return 0;
 }
 
-int posicaoehvalida(MAPA* m, int x, int y) {
-    if(x >= m->linhas) return 0;
-    if(y >= m->colunas) return 0;
-    if(m->matriz[x][y] != VAZIO) return 0;
-    return 1;
+int ehparede(MAPA* m, int x, int y) {
+    return m->matriz[x][y] == PAREDE_HORIZONTAL ||
+    m->matriz[x][y] == PAREDE_VERTICAL;
+}
+
+int eholimitedomapa(MAPA* m, int x, int y) {
+    if(x >= m->linhas) return 1;
+    if(y >= m->colunas) return 1;
+    return 0;
+}
+
+int ehvazio(MAPA* m, int x, int y) {
+    if(m->matriz[x][y] == VAZIO) return 1;
+    return 0;
+}
+
+int ehpersonagem(MAPA* m, char personagem, int x, int y) {
+    return m->matriz[x][y] == personagem;
 }
 
 void andapelomapa(MAPA* m, int origemx, int origemy, int destinox, int destinoy) {
     char personagem = m->matriz[origemx][origemy];
     m->matriz[destinox][destinoy] = personagem;
     m->matriz[origemx][origemy] = VAZIO;
+}
+
+int posicaoehvalida(MAPA* m, char personagem, int x, int y) {
+    return !eholimitedomapa(m, x, y) &&
+    ehvazio(m, x, y) &&
+    !ehparede(m, x, y) &&
+    !ehpersonagem(m,personagem, x, y);
 }

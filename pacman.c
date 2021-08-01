@@ -20,7 +20,7 @@ int praondefantasmavai(int xatual, int yatual, int* destinox, int* destinoy) {
     for (int i = 0; i < 10; ++i) {
         int posicao = rand() % 4;
 
-        if(posicaoehvalida(&m, opcoes[posicao][0], opcoes[posicao][1])) {
+        if(posicaoehvalida(&m, FANTASMA,opcoes[posicao][0], opcoes[posicao][1])) {
             *destinox = opcoes[posicao][0];
             *destinoy = opcoes[posicao][1];
 
@@ -78,7 +78,7 @@ void move(char direcao) {
             wprintf(L"Comando inválido\n");
             break;
     }
-    if(posicaoehvalida(&m, proximox, proximoy)) {
+    if(posicaoehvalida(&m, PACMAN, proximox, proximoy)) {
         andapelomapa(&m, pacman.x, pacman.y, proximox, proximoy);
         pacman.x = proximox;
         pacman.y = proximoy;
