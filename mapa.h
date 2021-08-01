@@ -1,5 +1,10 @@
 #ifndef PACMAN_MAPA_H
 #define PACMAN_MAPA_H
+#define PACMAN '@'
+#define VAZIO '.'
+#define PAREDE_HORIZONTAL '-'
+#define PAREDE_VERTICAL '|'
+
 struct mapa {
     char** matriz;
     int linhas;

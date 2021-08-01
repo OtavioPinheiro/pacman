@@ -7,13 +7,6 @@
 MAPA m;
 POSICAO pacman;
 
-int posicaoehvalida(MAPA* m, int x, int y) {
-    if(x >= m->linhas) return 0;
-    if(y >= m->colunas) return 0;
-    if(m->matriz[x][y] != '.') return 0;
-    return 1;
-}
-
 int acabou() {
     return 0;
 }
@@ -23,16 +16,16 @@ void move(char direcao) {
     int proximoy = pacman.y;
 
     switch (direcao) {
-        case 'a':
+        case ESQUERDA:
             proximoy--;
             break;
-        case 'w':
+        case CIMA:
             proximox--;
             break;
-        case 's':
+        case BAIXO:
             proximox++;
             break;
-        case 'd':
+        case DIREITA:
             proximoy++;
             break;
         default:
@@ -50,7 +43,7 @@ void move(char direcao) {
 int main() {
     setlocale(LC_ALL, "Portuguese");
     lemapa(&m);
-    encontramapa(&m, &pacman, '@');
+    encontramapa(&m, &pacman, PACMAN);
     do {
         imprimemapa(&m);
         char comando;

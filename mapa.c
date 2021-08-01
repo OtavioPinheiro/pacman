@@ -51,10 +51,17 @@ void encontramapa(MAPA* m, POSICAO* p, char c) {
     }
 }
 
+int posicaoehvalida(MAPA* m, int x, int y) {
+    if(x >= m->linhas) return 0;
+    if(y >= m->colunas) return 0;
+    if(m->matriz[x][y] != VAZIO) return 0;
+    return 1;
+}
+
 void andapelomapa(MAPA* m, int* origemx, int* origemy, int destinox, int destinoy) {
     char personagem = m->matriz[*origemx][*origemy];
     m->matriz[destinox][destinoy] = personagem;
-    m->matriz[*origemx][*origemy] = '.';
+    m->matriz[*origemx][*origemy] = VAZIO;
     *origemx = destinox;
     *origemy = destinoy;
 }
