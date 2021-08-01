@@ -1,11 +1,30 @@
 #include <stdio.h>
 #include <stdlib.h>
-# include <locale.h>
+#include <locale.h>
+#include <time.h>
 #include "pacman.h"
 #include "mapa.c"
 
 MAPA m;
 POSICAO pacman;
+
+int praondefantasmavai(int xatual, int yatual, int* destinox, int* destinoy) {
+    int opcoes[4][2] = {
+            { xatual, yatual+1 },
+            { xatual+1, yatual },
+            { xatual, yatual-1 },
+            { xatual-1, yatual }
+    };
+
+    srand(time(0));
+    for (int i = 0; i < 10; ++i) {
+        int posicao = rand() % 4;
+
+        if() {}
+    }
+
+    return 0;
+}
 
 void fantasmas() {
     MAPA auxiliar;
