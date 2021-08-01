@@ -4,6 +4,7 @@
 #include <time.h>
 #include "pacman.h"
 #include "mapa.c"
+#include "ui.h"
 
 MAPA m;
 POSICAO pacman;
@@ -103,6 +104,8 @@ void explodepilula() {
     explodepilula2(pacman.x, pacman.y, 0, -1, 3);
     explodepilula2(pacman.x, pacman.y, 1, 0, 3);
     explodepilula2(pacman.x, pacman.y, -1, 0, 3);
+
+    tempilula = 0;
 }
 
 void explodepilula2(int x, int y, int somax, int somay, int qtde) {
