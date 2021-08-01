@@ -2,6 +2,7 @@
 #define PACMAN_MAPA_H
 #define PACMAN '@'
 #define FANTASMA 'F'
+#define PILULA 'P'
 #define VAZIO '.'
 #define PAREDE_HORIZONTAL '-'
 #define PAREDE_VERTICAL '|'

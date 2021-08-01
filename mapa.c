@@ -8,13 +8,13 @@ void mapaauxiliar(MAPA* destino, MAPA* origem) {
     destino->colunas = origem->colunas;
 
     alocamapa(destino);
-    for (int i = 0; i < origem->linhas; ++i) {
+    for (int i = 0; i < origem->linhas; i++) {
         strcpy(destino->matriz[i], origem->matriz[i]);
     }
 }
 
 void liberamapa(MAPA* m) {
-    for (int i = 0; i < m->linhas; ++i) {
+    for (int i = 0; i < m->linhas; i++) {
         free(m->matriz[i]);
     }
     free(m->matriz);
@@ -22,7 +22,7 @@ void liberamapa(MAPA* m) {
 
 void alocamapa(MAPA* m) {
     m->matriz = malloc(sizeof(char*) * m->linhas);
-    for (int i = 0; i < m->linhas; ++i) {
+    for (int i = 0; i < m->linhas; i++) {
         m->matriz[i] = malloc(sizeof(char) * (m->colunas + 1));
     }
 }
@@ -37,7 +37,7 @@ void lemapa(MAPA* m) {
     fscanf(f, "%d %d", &(m->linhas), &(m->colunas));
     alocamapa(m);
 
-    for (int i = 0; i < m->linhas; ++i) {
+    for (int i = 0; i < m->linhas; i++) {
         fscanf(f, "%s", m->matriz[i]);
     }
 
@@ -45,14 +45,14 @@ void lemapa(MAPA* m) {
 }
 
 void imprimemapa(MAPA* m) {
-    for (int i = 0; i < m->linhas; ++i) {
+    for (int i = 0; i < m->linhas; i++) {
         printf("%s\n", m->matriz[i]);
     }
 }
 
 int encontramapa(MAPA* m, POSICAO* p, char c) {
-    for (int i = 0; i < m->linhas; ++i) {
-        for (int j = 0; j < m->colunas; ++j) {
+    for (int i = 0; i < m->linhas; i++) {
+        for (int j = 0; j < m->colunas; j++) {
             if(m->matriz[i][j] == c) {
                 p->x = i;
                 p->y = j;

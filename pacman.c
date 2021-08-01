@@ -7,6 +7,7 @@
 
 MAPA m;
 POSICAO pacman;
+int tempilula = 0;
 
 int praondefantasmavai(int xatual, int yatual, int* destinox, int* destinoy) {
     int opcoes[4][2] = {
@@ -17,7 +18,7 @@ int praondefantasmavai(int xatual, int yatual, int* destinox, int* destinoy) {
     };
 
     srand(time(0));
-    for (int i = 0; i < 10; ++i) {
+    for (int i = 0; i < 10; i++) {
         int posicao = rand() % 4;
 
         if(posicaoehvalida(&m, FANTASMA,opcoes[posicao][0], opcoes[posicao][1])) {
@@ -34,8 +35,8 @@ int praondefantasmavai(int xatual, int yatual, int* destinox, int* destinoy) {
 void fantasmas() {
     MAPA auxiliar;
     mapaauxiliar(&auxiliar, &m);
-    for (int i = 0; i < m.linhas; ++i) {
-        for (int j = 0; j < m.colunas; ++j) {
+    for (int i = 0; i < m.linhas; i++) {
+        for (int j = 0; j < m.colunas; j++) {
             if(auxiliar.matriz[i][j] == FANTASMA) {
 
                 int destinox;
@@ -74,11 +75,20 @@ void move(char direcao) {
         case DIREITA:
             proximoy++;
             break;
+        case BOMBA:
+            explodepilula();
+            break;
         default:
             wprintf(L"Comando inválido\n");
             break;
     }
-    if(posicaoehvalida(&m, PACMAN, proximox, proximoy)) {
+    if(ehpersonagem(&m, PILULA, proximox, proximoy)) {
+        tempilula = 1;
+        andapelomapa(&m, pacman.x, pacman.y, proximox, proximoy);
+        pacman.x = proximox;
+        pacman.y = proximoy;
+    }
+    else if(posicaoehvalida(&m, PACMAN, proximox, proximoy)) {
         andapelomapa(&m, pacman.x, pacman.y, proximox, proximoy);
         pacman.x = proximox;
         pacman.y = proximoy;
@@ -88,11 +98,30 @@ void move(char direcao) {
     }
 }
 
+void explodepilula() {
+    explodepilula2(pacman.x, pacman.y, 0, 1, 3);
+    explodepilula2(pacman.x, pacman.y, 0, -1, 3);
+    explodepilula2(pacman.x, pacman.y, 1, 0, 3);
+    explodepilula2(pacman.x, pacman.y, -1, 0, 3);
+}
+
+void explodepilula2(int x, int y, int somax, int somay, int qtde) {
+    if(qtde == 0) return;
+    int novox = x + somax;
+    int novoy = y + somay;
+    if(eholimitedomapa(&m, novox, novoy)) return;
+    if(ehparede(&m, novox, novoy)) return;
+
+    m.matriz[novox][novoy] = VAZIO;
+    explodepilula2(novox, novoy, somax, somay, qtde - 1);
+}
+
 int main() {
     setlocale(LC_ALL, "Portuguese");
     lemapa(&m);
     encontramapa(&m, &pacman, PACMAN);
     do {
+        wprintf(L"Tem pilula: %s\n", (tempilula ? L"SIM" : L"NÃO"));
         imprimemapa(&m);
         char comando;
         scanf(" %c", &comando);
