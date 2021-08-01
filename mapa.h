@@ -13,6 +13,7 @@ struct posicao {
 };
 typedef struct posicao POSICAO;
 
+int posicaoehvalida(MAPA* m, int x, int y);
 void liberamapa(MAPA* m);
 void lemapa(MAPA* m);
 void imprimemapa(MAPA* m);

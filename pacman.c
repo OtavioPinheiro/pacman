@@ -7,6 +7,13 @@
 MAPA m;
 POSICAO pacman;
 
+int posicaoehvalida(MAPA* m, int x, int y) {
+    if(x >= m->linhas) return 0;
+    if(y >= m->colunas) return 0;
+    if(m->matriz[x][y] != '.') return 0;
+    return 1;
+}
+
 int acabou() {
     return 0;
 }
@@ -32,15 +39,12 @@ void move(char direcao) {
             wprintf(L"Comando inválido\n");
             break;
     }
-
-    if(proximox >= m.linhas) return;
-    if(proximoy >= m.colunas) return;
-    if(m.matriz[proximox][proximoy] != '.') return;
-
-    m.matriz[proximox][proximoy] = '@';
-    m.matriz[pacman.x][pacman.y] = '.';
-    pacman.x = proximox;
-    pacman.y = proximoy;
+    if(posicaoehvalida(&m, proximox, proximoy)) {
+        andapelomapa(&m, &pacman.x, &pacman.y, proximox, proximoy);
+    } else {
+        wprintf(L"Posição inválida!\n");
+        return;
+    }
 }
 
 int main() {

@@ -50,3 +50,11 @@ void encontramapa(MAPA* m, POSICAO* p, char c) {
         }
     }
 }
+
+void andapelomapa(MAPA* m, int* origemx, int* origemy, int destinox, int destinoy) {
+    char personagem = m->matriz[*origemx][*origemy];
+    m->matriz[destinox][destinoy] = personagem;
+    m->matriz[*origemx][*origemy] = '.';
+    *origemx = destinox;
+    *origemy = destinoy;
+}
