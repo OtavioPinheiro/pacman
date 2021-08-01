@@ -7,6 +7,21 @@
 MAPA m;
 POSICAO pacman;
 
+void fantasmas() {
+    MAPA auxiliar;
+    mapaauxiliar(&auxiliar, &m);
+    for (int i = 0; i < m.linhas; ++i) {
+        for (int j = 0; j < m.colunas; ++j) {
+            if(auxiliar.matriz[i][j] == FANTASMA) {
+                if(posicaoehvalida(&m, i, j+1)) {
+                    andapelomapa(&m, i, j, i, j+1);
+                }
+            }
+        }
+    }
+    liberamapa(&auxiliar);
+}
+
 int acabou() {
     return 0;
 }
@@ -33,7 +48,9 @@ void move(char direcao) {
             break;
     }
     if(posicaoehvalida(&m, proximox, proximoy)) {
-        andapelomapa(&m, &pacman.x, &pacman.y, proximox, proximoy);
+        andapelomapa(&m, pacman.x, pacman.y, proximox, proximoy);
+        pacman.x = proximox;
+        pacman.y = proximoy;
     } else {
         wprintf(L"Posição inválida!\n");
         return;
@@ -49,6 +66,7 @@ int main() {
         char comando;
         scanf(" %c", &comando);
         move(comando);
+        fantasmas();
     } while (!acabou());
     liberamapa(&m);
 

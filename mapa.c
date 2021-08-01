@@ -1,6 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "mapa.h"
+
+void mapaauxiliar(MAPA* destino, MAPA* origem) {
+    destino->linhas = origem->linhas;
+    destino->colunas = origem->colunas;
+
+    alocamapa(destino);
+    for (int i = 0; i < origem->linhas; ++i) {
+        strcpy(destino->matriz[i], origem->matriz[i]);
+    }
+}
 
 void liberamapa(MAPA* m) {
     for (int i = 0; i < m->linhas; ++i) {
@@ -58,10 +69,8 @@ int posicaoehvalida(MAPA* m, int x, int y) {
     return 1;
 }
 
-void andapelomapa(MAPA* m, int* origemx, int* origemy, int destinox, int destinoy) {
-    char personagem = m->matriz[*origemx][*origemy];
+void andapelomapa(MAPA* m, int origemx, int origemy, int destinox, int destinoy) {
+    char personagem = m->matriz[origemx][origemy];
     m->matriz[destinox][destinoy] = personagem;
-    m->matriz[*origemx][*origemy] = VAZIO;
-    *origemx = destinox;
-    *origemy = destinoy;
+    m->matriz[origemx][origemy] = VAZIO;
 }

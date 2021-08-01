@@ -7,4 +7,6 @@
 
 int acabou();
 void move(char);
+void fantasmas();
+
 #endif //PACMAN_PACMAN_H
